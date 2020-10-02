@@ -44,3 +44,6 @@ tidypodcatch uses an xml file to configure podcast archiving.
   </FilenameFormat>
 </Podcast>
 ```
+
+## Known Limitations
+* As the script uses the 'does a file of that name?' at the test to decide if an episode should be downloaded, if a podcast updates the mp3/m4a file, tidypodcatch will not download the newer version. Delete or name a file to force re-downloading on next script execution
