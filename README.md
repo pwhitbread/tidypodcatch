@@ -16,8 +16,6 @@ tidypodcatch is a simple podcast archiver, written in Python3.
 * Create a configuration xml file
 
 ## Execution
-```tidypodcatch.py <xml file>
-```
 The file _meta.txt_ is created by the script and every time a podcast is downloaded the RSS metadata for that episode is appended to the end.
 
 The script will download any episode where a file of the name does not already exist and will skip any episode where is does.
