@@ -6,7 +6,7 @@ tidypodcatch is a simple podcast archiver, written in Python3.
 
 * Simple install, minimal dependencies
 * Cron-able
-* Logical folder & filename structure of the downloaded files
+* Logical folder & filename human-readable structure of the downloaded files
 
 ## Installation
 
