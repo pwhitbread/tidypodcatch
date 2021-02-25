@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-"""
-tidypodcatch
-    A simple Python3 script for archiving podcasts from an rss feed
-    https://github.com/pwhitbread/tidypodcatch
-"""
+#!/usr/bin/python3
 
 import feedparser
 import re
@@ -12,7 +7,6 @@ import requests
 import xml.etree.ElementTree as etree
 import sys
 
-# Function to check if the required directory exists, creates otherwises
 def ckmkdir(reqpath):
   if not os.path.exists(reqpath):
     os.makedirs(reqpath)
@@ -21,14 +15,15 @@ def ckmkdir(reqpath):
 
 def main():
     
-    # Defaults. Future plan to make customisable on a per feed basis
     fieldsep = " - "
     intdigits = 4
     links_count = 2
 
     if len(sys.argv) != 2:
-        printf("usage: tidypodcatch.py <xml file>")
+        print ("usage: tidypodcatch.py <xml file>")
         sys.exit()
+    
+
     xmlfile = sys.argv[1]
 
     # Import XML
@@ -59,7 +54,7 @@ def main():
 
         atoms = 0
         try:
-            fileformatnode = podcastnode.find('FilenameFormat')
+            fileformatnode = podcastnode.find('FileFormat')
             for filenameatom in fileformatnode.iter("atom"):
                 atoms = atoms + 1
                 filefmt.append(filenameatom.text)
@@ -68,7 +63,6 @@ def main():
             sys.exit()
 
         if atoms == 0:
-            # No metadata atoms defined, skip feed 
             print("Mising Fileformat atom element(s), block ", i)
             sys.exit()            
 
@@ -81,10 +75,10 @@ def main():
         for episode in NewsFeed.entries:
             fn = ""
             for i in range(0,links_count):
-                if episode.links[i].href.endswith(".mp3"):
+                if episode.links[i].href.find(".mp3"):
                     episode_url = episode.links[i].href
                     codec = ".mp3"
-                elif episode.links[i].href.endswith(".mp3"):
+                elif episode.links[i].href.find(".m4a"):
                     episode_url = episode.links[i].href
                     codec = ".m4a"
 
@@ -107,6 +101,7 @@ def main():
         
             if not os.path.isfile(target_path + "/" + valid_fn):
                 print ("download: " + valid_fn)
+                print ("download url: " + episode_url )
                 r = requests.get(episode_url, allow_redirects=True)
                 open(target_path + "/" + valid_fn, 'wb').write(r.content)
 
