@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+tidypodcatch
+    A simple Python3 script for archiving podcasts from an rss feed
+    https://github.com/pwhitbread/tidypodcatch
+"""
 
 import feedparser
 import re
@@ -7,6 +12,7 @@ import requests
 import xml.etree.ElementTree as etree
 import sys
 
+# Function to check if the required directory exists, creates otherwises
 def ckmkdir(reqpath):
   if not os.path.exists(reqpath):
     os.makedirs(reqpath)
@@ -14,7 +20,8 @@ def ckmkdir(reqpath):
   return 0
 
 def main():
-    
+
+    # Defaults. Future plan to make customisable on a per feed basis
     fieldsep = " - "
     intdigits = 4
     links_count = 2
